@@ -7,16 +7,16 @@ const readLocation = readline.createInterface({
     output: process.stdout
 })
 
-const getWether = (location) => geocode(location, (error, data) => {
+const getWether = (location) => geocode(location, (error, {latitude, longitude, location}) => {
     if (error) {
         return console.log('Geocode error: ', error)
     }
 
-    forecast(data.latitude, data.longitude, (forecastError, forecastData) => {
+    forecast(latitude, longitude, (forecastError, forecastData) => {
         if (error) {
             return onsole.log('Forecast error: ', forecastError)
         }
-        console.log(data.location, 'latitude/longitude: ', data.latitude, '/', data.longitude)
+        console.log(location, 'latitude/longitude: ', latitude, '/', longitude)
         console.log(`It is currently ${forecastData.temperature} degress out. It feels like ${forecastData.feelslike} degress out. ${forecastData.weather_descriptions}.`)
     })
 })
